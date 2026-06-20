@@ -46,15 +46,15 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --color-brand-bg: #050505;
+  --color-brand-surface: #070707;
+  --color-brand-accent: #d8ad78;
+  --color-brand-accent-hover: #e8c392;
+  --color-brand-fg: #f5f0e8;
+  --color-brand-muted: #aaa39b;
 }
 
 :root {
-  --font-geist-sans:
-    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
-  --font-geist-mono:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
