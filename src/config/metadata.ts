@@ -2,12 +2,9 @@ import type { Metadata } from "next";
 
 import { siteConfig } from "@/config/site";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   applicationName: siteConfig.name,
-  alternates: {
-    canonical: "/",
-  },
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
@@ -57,3 +54,19 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
 };
+
+// Used in layout.tsx — no canonical here so pages don't silently inherit "/"
+export const metadata: Metadata = baseMetadata;
+
+// Use this in every page to set the correct canonical for that route.
+// Example: export const metadata = createMetadata("/about", { title: "About" });
+export function createMetadata(
+  path: string,
+  overrides?: Partial<Metadata>,
+): Metadata {
+  return {
+    ...baseMetadata,
+    ...overrides,
+    alternates: { canonical: path },
+  };
+}

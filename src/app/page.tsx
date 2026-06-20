@@ -7,7 +7,10 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { createMetadata } from "@/config/metadata";
 import { siteConfig } from "@/config/site";
+
+export const metadata = createMetadata("/");
 
 const installCommand =
   "git clone https://github.com/devinaacs/next-starter-kit.git my-app && cd my-app && cp .env.example .env.local && npm install";
