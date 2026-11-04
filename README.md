@@ -15,7 +15,8 @@ Demo: <https://dev-nextjs-starter-kit.vercel.app/>
 - Prettier with Tailwind class sorting
 - Vitest, React Testing Library, and jsdom
 - Zod-based environment validation
-- GitHub Actions CI
+- Security headers, skip link, theme toggle, and mobile navigation
+- GitHub Actions CI with Dependabot
 
 ## Getting Started
 
@@ -36,6 +37,7 @@ npm run dev            # Start local development
 npm run build          # Create a production build
 npm run start          # Start the production server
 npm run lint           # Run ESLint
+npm run lint:fix       # Run ESLint with autofix
 npm run typecheck      # Run TypeScript without emitting files
 npm run format         # Format the project
 npm run format:check   # Check formatting
@@ -92,6 +94,7 @@ The app shell wraps routes with:
 - Use `@/` imports for files inside `src`.
 - Keep generic reusable UI in `src/components/ui`, layout shell pieces in `src/components/layout`, and app-specific shared pieces in `src/components/shared`.
 - Keep validated configuration in `src/config` and `src/lib/env.ts`.
+- Use `createMetadata(path, overrides)` from `src/config/metadata.ts` in every page for correct canonical and social tags.
 - Run `npm run check` before merging or deploying.
 
 ## CI
@@ -115,7 +118,7 @@ For a production deployment, run:
 npx vercel@latest deploy --prod
 ```
 
-On the first deploy, the Vercel CLI will ask you to create or link a Vercel project. After deployment, set `NEXT_PUBLIC_APP_URL` to the deployed origin for correct metadata URLs:
+On the first deploy, the Vercel CLI will ask you to create or link a Vercel project. On Vercel, `NEXT_PUBLIC_APP_URL` falls back to the production domain automatically. To use a custom domain, set it to the deployed origin:
 
 ```bash
 npx vercel@latest env add NEXT_PUBLIC_APP_URL production

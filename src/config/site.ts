@@ -9,9 +9,12 @@ export const siteConfig = {
   ogImage: "/og",
   author: "Open Source",
   mainNav: [
-    { title: "Foundation", href: "#foundation" },
-    { title: "Components", href: "https://ui.shadcn.com/docs/components" },
-    { title: "Docs", href: "https://nextjs.org/docs" },
+    {
+      title: "Components",
+      href: "https://ui.shadcn.com/docs/components",
+      external: true,
+    },
+    { title: "Docs", href: "https://nextjs.org/docs", external: true },
   ] satisfies NavItem[],
   links: {
     docs: "https://nextjs.org/docs",

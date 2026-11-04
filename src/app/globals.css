@@ -46,12 +46,15 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
-  --color-brand-bg: #050505;
-  --color-brand-surface: #070707;
-  --color-brand-accent: #d8ad78;
-  --color-brand-accent-hover: #e8c392;
-  --color-brand-fg: #f5f0e8;
-  --color-brand-muted: #aaa39b;
+  --color-brand-bg: var(--brand-bg);
+  --color-brand-surface: var(--brand-surface);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-accent-hover: var(--brand-accent-hover);
+  --color-brand-on-accent: var(--brand-on-accent);
+  --color-brand-fg: var(--brand-fg);
+  --color-brand-muted: var(--brand-muted);
+  --color-brand-panel: var(--brand-panel);
+  --color-brand-shadow: var(--brand-shadow);
 }
 
 :root {
@@ -87,6 +90,20 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Landing page palette (light: warm paper + deep gold) */
+  --brand-bg: #faf7f2;
+  --brand-surface: #fffdf9;
+  --brand-accent: #8a5a1f;
+  --brand-accent-hover: #744a16;
+  --brand-on-accent: #fffdf9;
+  --brand-fg: #1a1713;
+  --brand-muted: #5f574e;
+  --brand-panel: #ffffff;
+  --brand-shadow: rgb(80 55 20 / 0.18);
+  --brand-grid: rgb(0 0 0 / 0.06);
+  --brand-scrim-from: rgb(250 247 242 / 0.35);
+  --brand-scrim-to: rgb(250 247 242 / 0.78);
 }
 
 .dark {
@@ -121,6 +138,20 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* Landing page palette (dark: black + warm gold) */
+  --brand-bg: #050505;
+  --brand-surface: #070707;
+  --brand-accent: #d8ad78;
+  --brand-accent-hover: #e8c392;
+  --brand-on-accent: #000000;
+  --brand-fg: #f5f0e8;
+  --brand-muted: #aaa39b;
+  --brand-panel: #000000;
+  --brand-shadow: #000000;
+  --brand-grid: rgb(255 255 255 / 0.055);
+  --brand-scrim-from: rgb(5 5 5 / 0.35);
+  --brand-scrim-to: rgb(5 5 5 / 0.78);
 }
 
 @layer base {
@@ -146,12 +177,13 @@
   }
 }
 
+/* Transform-only so the drift runs on the compositor, not the main thread. */
 @keyframes hero-grid-drift {
   from {
-    background-position: 0 0;
+    transform: translate3d(0, 0, 0);
   }
   to {
-    background-position: 44px 44px;
+    transform: translate3d(44px, 44px, 0);
   }
 }
 
@@ -159,11 +191,9 @@
   0%,
   100% {
     opacity: 0.72;
-    filter: drop-shadow(0 0 0 rgb(216 173 120 / 0));
   }
   50% {
     opacity: 1;
-    filter: drop-shadow(0 0 14px rgb(216 173 120 / 0.28));
   }
 }
 

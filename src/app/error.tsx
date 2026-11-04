@@ -16,7 +16,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <main className="bg-background flex grow items-center justify-center px-6">
+    <div className="bg-background flex grow items-center justify-center px-6">
       <div className="flex max-w-md flex-col items-center gap-5 text-center">
         <p className="text-muted-foreground text-sm font-medium">
           Something went wrong
@@ -29,6 +29,6 @@ export default function Error({
         </p>
         <Button onClick={reset}>Try again</Button>
       </div>
-    </main>
+    </div>
   );
 }

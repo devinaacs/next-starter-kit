@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 
 import { siteConfig } from "@/config/site";
 
@@ -58,15 +58,38 @@ const baseMetadata: Metadata = {
 // Used in layout.tsx — no canonical here so pages don't silently inherit "/"
 export const metadata: Metadata = baseMetadata;
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
+};
+
 // Use this in every page to set the correct canonical for that route.
 // Example: export const metadata = createMetadata("/about", { title: "About" });
 export function createMetadata(
   path: string,
-  overrides?: Partial<Metadata>,
+  { openGraph, twitter, ...overrides }: Metadata = {},
 ): Metadata {
+  // Keep social cards in sync with the page title unless explicitly overridden.
+  const title = typeof overrides.title === "string" ? overrides.title : null;
+  const description =
+    typeof overrides.description === "string" ? overrides.description : null;
+  const shared = {
+    ...(title && { title }),
+    ...(description && { description }),
+  };
+
   return {
     ...baseMetadata,
     ...overrides,
     alternates: { canonical: path },
+    openGraph: {
+      ...baseMetadata.openGraph,
+      ...shared,
+      url: path,
+      ...openGraph,
+    },
+    twitter: { ...baseMetadata.twitter, ...shared, ...twitter },
   };
 }

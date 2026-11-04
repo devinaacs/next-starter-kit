@@ -1,13 +1,30 @@
 import { z } from "zod";
 
 const envSchema = z.object({
-  NODE_ENV: z
-    .enum(["development", "test", "production"])
-    .default("development"),
-  NEXT_PUBLIC_APP_URL: z.string().url().default("http://localhost:3000"),
+  NEXT_PUBLIC_APP_URL: z
+    .url()
+    .default("http://localhost:3000")
+    // Strip trailing slashes so `${url}/path` never produces "//path".
+    .transform((url) => url.replace(/\/+$/, "")),
 });
 
-export const env = envSchema.parse({
-  NODE_ENV: process.env.NODE_ENV,
-  NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL || undefined,
+export function parseEnv(source: Record<string, string | undefined>) {
+  const result = envSchema.safeParse({
+    // Treat empty strings (e.g. `FOO=` in .env) as unset.
+    NEXT_PUBLIC_APP_URL: source.NEXT_PUBLIC_APP_URL || undefined,
+  });
+
+  if (!result.success) {
+    throw new Error(
+      `Invalid environment variables:\n${z.prettifyError(result.error)}`,
+    );
+  }
+
+  return result.data;
+}
+
+// Each NEXT_PUBLIC_* variable must be referenced literally so Next.js can
+// inline it into the client bundle.
+export const env = parseEnv({
+  NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
 });
