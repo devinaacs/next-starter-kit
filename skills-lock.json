@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "senior-software-engineer": {
+      "source": "sargupta/sahayakai",
+      "sourceType": "github",
+      "skillPath": ".agent/skills/senior-software-engineer/SKILL.md",
+      "computedHash": "68e4e6028e80dd595dba90b2d148ef3c992df2b4e97d7a3b4410d366b27360d6"
+    }
+  }
+}
